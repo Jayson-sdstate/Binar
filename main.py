@@ -7,14 +7,11 @@ signedMode = True
 def main():
     print("Welcome to binar")
 
-    value = 0
-
-    usr_input(value)
-
+    usr_input(0)
 
 
 def usr_input(value):
-    print("Enter: bin, num, val, settings, exit")
+    print("Enter: bin, num, val, stats, settings, exit")
     choice = input()
     global eightBitMode
     global signedMode
@@ -43,6 +40,8 @@ def usr_input(value):
         print("Signed byte mode: " + signedMode.__str__())
         print("")
         usr_input(value)
+    elif choice == "stats":
+        print_stats(value)
     elif choice == "sf":
         print("Now in unsigned mode")
         signedMode = False
@@ -62,12 +61,12 @@ def usr_input(value):
 def print_val(value):
     print("")
 
-    if signedMode == True:
-        print("Size: " + binaryconvert.get_bytes_size(value, True).__str__() + " bytes")
-    elif signedMode == False:
-        print("Size: " + binaryconvert.get_bytes_size(value, False).__str__() + " bytes")
-
     print("Integer value: " + value.__str__())
+
+    if signedMode == False:
+        binaryNum = binaryconvert.num_to_bin(value, False)
+        charNum = binaryconvert.num_to_char(binaryNum)
+        print("Character bytes: " + binaryconvert.bytelist_to_bytestring(charNum))
 
     bin_list = bin_string(value)
     print("Binary value: " + bin_list)
@@ -77,6 +76,19 @@ def print_val(value):
     print("")
     usr_input(value)
 
+def print_stats(value):
+
+    print("")
+    if signedMode == True:
+        print("Size: " + binaryconvert.get_bytes_size(value, True).__str__() + " bytes")
+    elif signedMode == False:
+        print("Size: " + binaryconvert.get_bytes_size(value, False).__str__() + " bytes")
+
+    print("Digits: " + binaryconvert.get_digits(value).__str__())
+
+    print("")
+
+    usr_input(value)
 
 def num_input(value):
     numVal = input()
